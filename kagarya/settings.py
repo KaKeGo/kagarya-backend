@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     
     #Third party libraries
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -141,5 +142,14 @@ STORAGES = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+ ]
 
 django_on_heroku.settings(locals())
