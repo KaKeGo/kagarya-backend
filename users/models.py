@@ -36,7 +36,7 @@ class User(AbstractUser):
     is_superuser = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     date_created = models.DateTimeField(default=timezone.now)
-    last_login = models.DateField(auto_now=True)
+    last_login = models.DateTimeField(default=timezone.now)
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

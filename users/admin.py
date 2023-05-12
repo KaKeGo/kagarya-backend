@@ -20,6 +20,11 @@ class CustomUserAdmin(UserAdmin):
     
     list_display = ('email', 'is_active', 'last_login')
     list_filter = ('is_active', 'is_staff', 'is_superuser')
+    fieldsets = (
+        ('None', {'fields': ('email', 'password',)}),
+        ('Permission', {'fields': ('is_staff', 'is_superuser',)}),
+        ('Dates', {'fields': ('date_created', 'last_login')}),
+    )
 
 
 admin.site.register(User, CustomUserAdmin)
