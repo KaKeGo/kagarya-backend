@@ -48,8 +48,8 @@ class CustomUser(AbstractUser):
         return self.email
     
 class UserProfile(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
-    def __str__(self, pk):
-        return f'{self.user.username}/{self.pk}'
+    def __str__(self):
+        return f'{self.user.email}'
     
