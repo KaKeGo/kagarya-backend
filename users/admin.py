@@ -18,7 +18,8 @@ class CustomUserAdmin(UserAdmin):
     
     model = User
     
-    list_display = ('username', 'email', 'is_active')
+    list_display = ('email', 'is_active', 'last_login')
+    list_filter = ('is_active', 'is_staff', 'is_superuser')
 
 
 admin.site.register(User, CustomUserAdmin)

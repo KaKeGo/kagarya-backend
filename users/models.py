@@ -31,7 +31,6 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class User(AbstractUser):
-    username = models.CharField(max_length=40)
     email = models.EmailField(max_length=30, unique=True)
     is_staff = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=True)
