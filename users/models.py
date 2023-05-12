@@ -16,7 +16,7 @@ class UserManager(BaseUserManager):
             **extra_fields
         )
         user.set_password(password)
-        user.save()
+        user.save(using=self._db)
         return user
             
     def create_superuser(self, email, password, **extra_fields):
@@ -30,7 +30,8 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True')
         return self.create_user(email, password, **extra_fields)
 
-class User(AbstractUser):
+class CustomUser(AbstractUser):
+    username = models.CharField(max_length=1, blank=True, null=True)
     email = models.EmailField(max_length=30, unique=True)
     is_staff = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=True)
@@ -47,7 +48,7 @@ class User(AbstractUser):
         return self.email
     
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self, pk):
         return f'{self.user.username}/{self.pk}'
