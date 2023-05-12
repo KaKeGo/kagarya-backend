@@ -47,4 +47,9 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
     
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self, pk):
+        return f'{self.user.username}/{self.pk}'
     
