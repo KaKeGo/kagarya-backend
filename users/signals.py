@@ -6,12 +6,10 @@ from .models import (
     UserProfile,
 )
 
-
+@receiver(post_save, sender=CustomUser)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         user_profile = UserProfile.objects.create(
                 user=instance
             )
         user_profile.save()
-
-post_save.connect(create_user_profile, sender=CustomUser)
