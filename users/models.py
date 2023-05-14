@@ -60,3 +60,6 @@ class UserProfile(models.Model):
     def get_email(self):
         return self.user.email
     
+    def get_online_status(self):
+        return self.user.last_login
+    
