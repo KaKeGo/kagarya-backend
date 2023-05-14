@@ -51,7 +51,9 @@ class UserProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     p_username = models.CharField(max_length=30, blank=True, null=True)
     avatar = models.ImageField(upload_to='user/avatar/', default='d_avatar.jpg', blank=True, null=True)
-
+    about = models.TextField(blank=True, null=True)
+    motto = models.TextField(max_length=255, blank=True, null=True)
+    
     def __str__(self):
-        return f'{self.user.email}'
+        return f'{self.user.email} / id: {self.user.pk}'
     
