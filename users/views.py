@@ -1,10 +1,11 @@
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
-from django.contrib import auth
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import permissions, status, generics
+from rest_framework import permissions, status
 
 from .models import (
     CustomUser,
@@ -41,6 +42,18 @@ class CreateUserAccount(APIView):
         
         return Response({'error': 'Something went wrong with creating user'}, status=status.HTTP_400_BAD_REQUEST)
 
+class LoginView(APIView):
+    def post(self, request):
+        if 'email' not in request.data or 'password' not in request.data or 'username' not in request.data:
+            return Response({'error': 'Credentials missing'}, status=status.HTTP_400_BAD_REQUEST)
+        email = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            return Response({'success': 'User logged in'}, status=status.HTTP_200_OK)
+        return Response({'error': 'Invalid credetnials'}, status=status.HTTP_401_UNAUTHORIZED)
+            
 class ChangePasswordView(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     
