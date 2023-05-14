@@ -57,3 +57,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return f'{self.user.email} / id: {self.user.pk}'
     
+    def get_email(self):
+        return self.user.email
+    
