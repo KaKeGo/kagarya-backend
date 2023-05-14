@@ -38,30 +38,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-        
-        # try:
-        #     if len(username) < 2:
-        #             return Response({'error': 'Username must be longer than 2 characters.'})
-        #     if password == re_password:
-        #         if CustomUser.objects.filter(email=email).exists():
-        #             return Response({'error': 'Account with this email already exists.'})
-        #         else:
-        #             if len(password) < 6:
-        #                 return Response({'error': 'Password must have at least 6 characters.'})
-        #             else:
-        #                 user = CustomUser.objects.create(
-        #                     email=email,
-        #                     username=username,
-        #                     password=password,
-        #                 )
-        #                 user.save()
-        #                 return Response({'success': 'Account created successfully.'})
-        #     else:
-        #         return Response({'error': 'Password do not match'}, status=status.HTTP_406_NOT_ACCEPTABLE)
-        # except:
-        #     return Response({'error': 'Something went wrong with creating user try again.'}, status=status.HTTP_400_BAD_REQUEST)
- 
-
 class PasswordChangeSerializer(serializers.Serializer):
     current_password = serializers.CharField(style={'input_type': 'password'}, required=True)
     new_password = serializers.CharField(style={'input_type': 'password'}, required=True)
