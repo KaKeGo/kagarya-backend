@@ -20,6 +20,13 @@ from .serializers import (
 # Create your views here.
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class GetCSRFToken(APIView):
+    permission_classes = (permissions.AllowAny, )
+    
+    def get(self, request):
+        return Response({'success': 'CSRFToken cookie set.'}) 
+
 class CheckAuthenticatedView(APIView):
     def get(self, request):
         try:
@@ -42,13 +49,16 @@ class CreateUserAccount(APIView):
         
         return Response({'error': 'Something went wrong with creating user'}, status=status.HTTP_400_BAD_REQUEST)
 
+@method_decorator(csrf_protect, name='dispatch')
 class LoginView(APIView):
+    permission_classes = (permissions.AllowAny, )
+    
     def post(self, request):
-        if 'email' not in request.data or 'password' not in request.data or 'username' not in request.data:
+        if 'email' not in request.data or 'password' not in request.data:
             return Response({'error': 'Credentials missing'}, status=status.HTTP_400_BAD_REQUEST)
         email = request.POST['email']
         password = request.POST['password']
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(email=email, password=password)
         if user is not None:
             login(request, user)
             return Response({'success': 'User logged in'}, status=status.HTTP_200_OK)
