@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from .models import CustomUser
+from .models import CustomUser, UserProfile
 
 
 class UserCreationForm(forms.ModelForm):
@@ -11,7 +11,7 @@ class UserCreationForm(forms.ModelForm):
     
     class Meta:
         model = CustomUser
-        fields = ['email',]
+        fields = ['email', 'username',]
         
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
