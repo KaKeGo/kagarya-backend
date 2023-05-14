@@ -13,6 +13,7 @@ from .models import (
 from .serializers import (
     ProfilesListSerializer,
     UserCreateSerializer,
+    PasswordChangeSerializer,
 )
 
 # Create your views here.
@@ -60,6 +61,18 @@ class CreateUserAccount(APIView):
         # except:
         #     return Response({'error': 'Something went wrong with creating user try again.'}, status=status.HTTP_400_BAD_REQUEST)
  
+class ChangePasswordView(APIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    
+    def post(self, request):
+         serializer = PasswordChangeSerializer(
+             context={'request': request}, data=request.data
+         )
+         serializer.is_valid(raise_exception=True)
+         request.user.set_password(serializer.validated_data['new_password'])
+         request.user.save()
+         return Response({'success': 'Password changed successfully'}, status=status.HTTP_204_NO_CONTENT)
+
 class ProfileListView(APIView):
     permission_classes = (permissions.AllowAny, )
     
