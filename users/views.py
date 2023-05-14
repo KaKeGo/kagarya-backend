@@ -55,7 +55,9 @@ class LoginView(APIView):
         return Response({'error': 'Invalid credetnials'}, status=status.HTTP_401_UNAUTHORIZED)
     
 class LogoutView(APIView):
-    pass
+    def post(self, request):
+        logout(request)
+        return Response({'success': 'Successfully Logged out'}, status=status.HTTP_401_UNAUTHORIZED)
             
 class ChangePasswordView(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
