@@ -85,12 +85,9 @@ class ProfileListView(APIView):
     permission_classes = (permissions.AllowAny, )
     
     def get(self, request):
-        try:
-            profiles = UserProfile.objects.all()
-            
-            profiles = ProfilesListSerializer(profiles, many=True)
-            
-            return Response(profiles.data, status=status.HTTP_200_OK)
-        except:
-            return Response({'error': 'Something went wrong and cant show profile list.'})
+        profiles = UserProfile.objects.all()
+        
+        profiles = ProfilesListSerializer(profiles, many=True)
+        
+        return Response(profiles.data, status=status.HTTP_200_OK)
         
