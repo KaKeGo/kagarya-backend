@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-15!1yjr!yptuwy@f!obworkp)n@c+_lojzwpi$&_m(dgq-35o^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://kagarya-back.herokuapp.com']
 
 
 # Application definition
@@ -147,11 +147,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "users.CustomUser"
 
-REST_FRAMEWORK = {
+# REST_FRAMEWORK = {
 
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-    ]
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.SessionAuthentication',
+#     ],
+# }
+
+if DEBUG is True:
+    REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
