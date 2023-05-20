@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
-
+import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,10 +27,10 @@ SECRET_KEY = 'django-insecure-15!1yjr!yptuwy@f!obworkp)n@c+_lojzwpi$&_m(dgq-35o^
 # SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
-    'kagarya-back.herokuapp.com',
+    '.herokuapp.com',
     'localhost',
     '127.0.0.1',
   ]
@@ -175,3 +175,4 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:3000",
  ]
 
+django_heroku.settings(locals())
