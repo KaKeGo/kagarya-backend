@@ -1,1 +1,1 @@
-web: gunicorn kagarya.wsgi
+web: gunicorn kagarya.wsgi --log-file -

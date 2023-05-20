@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
-import django_heroku
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,8 +29,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'kagarya-back.herokuapp.com',
-    'localhost:8000',
-    '127.0.0.1:8000',
+    'localhost',
+    '127.0.0.1',
   ]
 
 # Application definition
@@ -154,8 +154,15 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
 }
+
+if DEBUG is False:
+    REST_FRAMEWORK = {
+        'DEFAULT_RENDERER_CLASSES': [
+            'rest_framework.renderers.JSONRenderer',
+        ],
+    }
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -166,4 +173,3 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:3000",
  ]
 
-django_heroku.settings(locals())
