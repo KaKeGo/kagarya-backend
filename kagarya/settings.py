@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-15!1yjr!yptuwy@f!obworkp)n@c+_lojzwpi$&_m(dgq-35o^
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'https://kagarya-back.herokuapp.com/',
+    'kagarya-back.herokuapp.com/',
     'localhost',
     '127.0.0.1',
   ]
