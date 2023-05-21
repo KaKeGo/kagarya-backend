@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     #My app
+    'home',
     'users.apps.UsersConfig',
     
     #Third party libraries
@@ -71,7 +72,7 @@ ROOT_URLCONF = 'kagarya.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
