@@ -1,14 +1,14 @@
 from django.shortcuts import render
 
-from .models import ShowApiUrl
+from .models import CategoryApi
 
 # Create your views here.
 
 
 def homeView(request):
-    links = ShowApiUrl.objects.all()
+    categorys = CategoryApi.objects.all()
     tepmplate = 'home/home.html'
     context = {
-        'links': links
+        'categorys': categorys
     }
     return render(request, tepmplate, context)

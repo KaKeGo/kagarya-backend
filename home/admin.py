@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from .models import ShowApiUrl
+from .models import ShowApiUrl, CategoryApi
 
 # Register your models here.
 
 
-admin.site.register([ShowApiUrl])
+admin.site.register([ShowApiUrl, CategoryApi])

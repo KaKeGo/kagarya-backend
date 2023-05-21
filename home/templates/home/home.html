@@ -20,30 +20,34 @@
         <h5 class="card-header p-4">My Api urls</h5>
         <div class="card-body">
 
-          <h5 class="card-title">Accounts</h5>
+        {% for category in categorys %}
+        <div>
+            <h5 class="card-title">Accounts</h5>
 
-          <table class="table table-success text-center">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Url</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                {% for link in links %}
-                <th scope="row">1</th>
-                <td>{{ link.name }}</td>
-                <td>
-                    <a href='{{link.url}}'>{{ link.url_name }}</a>
-                </td>
-                {% endfor %}
-              </tr>
-              <tr>
-              </tr>
-            </tbody>
-          </table>
+            <table class="table table-success text-center">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Url</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    {% for link in category.api_category.all %}
+                    <th scope="row">{{category.id}}</th>
+                    <td>{{link.name}}</td>
+                    <td>
+                        <a href='{{link.url}}'>{{link.url_name}}</a>
+                    </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        {% endfor %}
 
         </div>
       </div>

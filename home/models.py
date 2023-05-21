@@ -13,6 +13,7 @@ class ShowApiUrl(models.Model):
     
 class CategoryApi(models.Model):
     name = models.CharField(max_length=40)
+    api_category = models.ManyToManyField('ShowApiUrl')
     
     def __str__(self):
         return self.name
