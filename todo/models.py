@@ -15,8 +15,8 @@ def random_slug():
 class ToDo(models.Model):
     title = models.CharField(max_length=30)
     description = models.TextField()
-    complited = models.BooleanField(default=False)
-    date_created = models.DateTimeField(default=timezone.now())
+    completed = models.BooleanField(default=False)
+    date_created = models.DateTimeField(default=timezone.now)
     slug = models.SlugField(unique=True, null=True, blank=True)
     
     def __str__(self):

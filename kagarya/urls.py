@@ -9,6 +9,7 @@ urlpatterns = [
     
     path('', include('home.urls')),
     path('account/', include('users.urls')),
+    path('todo/', include('todo.urls')),
 ] 
 
 if settings.DEBUG:
