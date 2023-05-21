@@ -39,7 +39,10 @@ class CheckAuthenticatedView(APIView):
         except:
             return Response({'error': 'Something went wrong when checking authentication'})
 
+@method_decorator(csrf_protect, name='dispatch')
 class CreateUserAccount(APIView): 
+    parser_classes = (permissions.AllowAny, )
+    
     def post(self, request):
         serializer = UserCreateSerializer(data=request.data)
         
@@ -63,8 +66,11 @@ class LoginView(APIView):
             login(request, user)
             return Response({'success': 'User logged in'}, status=status.HTTP_200_OK)
         return Response({'error': 'Invalid credetnials'}, status=status.HTTP_401_UNAUTHORIZED)
-    
+
+@method_decorator(csrf_protect, name='dispatch')
 class LogoutView(APIView):
+    permission_classes = (permissions.IsAuthenticated, )
+    
     def post(self, request):
         logout(request)
         return Response({'success': 'Successfully Logged out'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -81,6 +87,7 @@ class ChangePasswordView(APIView):
          request.user.save()
          return Response({'success': 'Password changed successfully'}, status=status.HTTP_204_NO_CONTENT)
 
+@method_decorator(csrf_protect, name='dispatch')
 class ProfileListView(APIView):
     permission_classes = (permissions.AllowAny, )
     
