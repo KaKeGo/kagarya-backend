@@ -11,10 +11,12 @@ class ShowApiUrl(models.Model):
     def __str__(self):
         return self.name
     
+    def Url_count(self):
+        return ShowApiUrl.objects.count()
+    
 class CategoryApi(models.Model):
     name = models.CharField(max_length=40)
     api_category = models.ManyToManyField('ShowApiUrl')
     
     def __str__(self):
         return self.name
-    
