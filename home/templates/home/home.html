@@ -4,6 +4,52 @@
 
 {% block content %}
 
-<div></div>
+<div class='text-center'>
+    <div>
+        <h4 class='mt-4'>
+            Welcome Kagarya site
+        </h4>
+    </div>
+    <div>
+        <p class='fs-6 fw-light m-4'>
+            Create this site for study more drf and i want to have my own site.
+            Then i think its greate idea to lern more about writing site better.
+        </p>
+    </div>
+    <div class="card">
+        <h5 class="card-header p-4">My Api urls</h5>
+        <div class="card-body">
+
+          <h5 class="card-title">Accounts</h5>
+
+          <table class="table table-success text-center">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Url</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Profiles list</td>
+                <td>
+                    <a href='http://localhost:8000/account/list/'>account/list/</a>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Create user</td>
+                <td>
+                    <a href='http://localhost:8000/account/create/'>account/create/</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
 
 {% endblock %}
