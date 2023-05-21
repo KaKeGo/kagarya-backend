@@ -11,7 +11,7 @@ class ShowApiUrl(models.Model):
     def __str__(self):
         return self.name
     
-    def Url_count(self):
+    def url_count(self):
         return ShowApiUrl.objects.count()
     
 class CategoryApi(models.Model):
