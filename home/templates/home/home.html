@@ -33,15 +33,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    {% for link in category.api_category.all %}
-                    <th scope="row">{{category.id}}</th>
-                    <td>{{link.name}}</td>
-                    <td>
-                        <a href='{{link.url}}'>{{link.url_name}}</a>
-                    </td>
-                    {% endfor %}
-                </tr>
+                {% for link in category.api_category.all %}
+                    <tr>
+                        <th scope="row">{{category.id}}</th>
+                        <td>{{link.name}}</td>
+                        <td>
+                            <a href='{{link.url}}'>{{link.url_name}}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
                 <tr>
                 </tr>
                 </tbody>
