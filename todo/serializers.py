@@ -25,3 +25,9 @@ class ToDoUpdateSerializer(serializers.ModelSerializer):
         fields = (
             'title', 'desciption', 'completed'
         )
+        
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.description = validated_data.get('description', instance.description)
+        instance.completed = validated_data.get('completed', instance.completed)
+        instance.save()
