@@ -32,18 +32,15 @@
             </thead>
             <tbody>
               <tr>
+                {% for link in links %}
                 <th scope="row">1</th>
-                <td>Profiles list</td>
+                <td>{{ link.name }}</td>
                 <td>
-                    <a href='http://localhost:8000/account/list/'>account/list/</a>
+                    <a href='{{link.url}}'>{{ link.url_name }}</a>
                 </td>
+                {% endfor %}
               </tr>
               <tr>
-                <th scope="row">2</th>
-                <td>Create user</td>
-                <td>
-                    <a href='http://localhost:8000/account/create/'>account/create/</a>
-                </td>
               </tr>
             </tbody>
           </table>
