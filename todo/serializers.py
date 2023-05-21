@@ -19,6 +19,16 @@ class ToDoCreateSerializer(serializers.ModelSerializer):
             'title', 'description'
         )
         
+    def validate_title(self, title):
+        if len(title) < 0:
+            raise ValueError('Title must be less than zero.')
+        return title
+    
+    def validate_description(self, description):
+        if len(description) < 0:
+            raise ValueError('Description must be less than zero.')
+        return description
+        
     def create(self, validated_data):
         todo = ToDo.objects.create(**validated_data)
         return todo
