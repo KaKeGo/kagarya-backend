@@ -24,6 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-15!1yjr!yptuwy@f!obworkp)n@c+_lojzwpi$&_m(dgq-35o^'
 
+
+=======
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -33,6 +35,11 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
   ]
 
+ALLOWED_HOSTS = [
+    '.herokuapp.com',
+    'localhost',
+    '127.0.0.1',
+  ]
 
 # Application definition
 
@@ -46,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     #My app
+    'home',
     'users.apps.UsersConfig',
     
     #Third party libraries
@@ -70,7 +78,7 @@ ROOT_URLCONF = 'kagarya.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -156,6 +164,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
     ],
+
 }
 
 if DEBUG is True:
@@ -165,6 +174,13 @@ if DEBUG is True:
     )
 }
 
+if DEBUG is False:
+    REST_FRAMEWORK = {
+        'DEFAULT_RENDERER_CLASSES': [
+            'rest_framework.renderers.JSONRenderer',
+        ],
+    }
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_CREDENTIALS = True
@@ -172,8 +188,6 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000'
     "http://127.0.0.1:3000",
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
  ]
 
 django_heroku.settings(locals())
