@@ -27,3 +27,15 @@ class ToDoListView(APIView):
         todo = ToDoListSerializer(todo, many=True)
         
         return Response(todo.data, status=status.HTTP_200_OK)
+
+@method_decorator(csrf_protect, name='dispatch')
+class ToDoCreateView(APIView):
+    permission_classes = (permissions.AllowAny, )
+    
+    def post(self, request):
+        serializer = ToDoCreateSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'success': 'Todo was created successfuly'}, status=status.HTTP_201_CREATED)
+        return Response({'error': 'Somethin went wrong with creating todo.'}, status=status.HTTP_400_BAD_REQUEST)
