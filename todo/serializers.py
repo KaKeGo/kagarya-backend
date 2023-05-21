@@ -19,6 +19,10 @@ class ToDoCreateSerializer(serializers.ModelSerializer):
             'title', 'description'
         )
         
+    def create(self, validated_data):
+        todo = ToDo.objects.create(**validated_data)
+        return todo
+        
 class ToDoUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ToDo
