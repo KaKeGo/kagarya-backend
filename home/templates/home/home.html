@@ -27,7 +27,7 @@
             <table class="table table-success text-center">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Id</th>
                     <th scope="col">Name</th>
                     <th scope="col">Url</th>
                 </tr>
@@ -35,7 +35,7 @@
                 <tbody>
                 {% for link in category.api_category.all %}
                     <tr>
-                        <th scope="row">{{ category.id }}</th>
+                        <th scope="row">{{ link.id }}</th>
                         <td>{{ link.name }}</td>
                         <td>
                             <a href='{{ link.url }}'>{{ link.url_name }}</a>
