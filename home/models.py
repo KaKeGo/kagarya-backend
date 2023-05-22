@@ -2,9 +2,16 @@ from django.db import models
 
 # Create your models here.
 
+ACCESS_CHOICES = [
+    ('Admin', 'Admin'),
+    ('Authenticated user', 'Authenticated user'),
+    ('Any', 'Any'),
+]
+
 
 class ShowApiUrl(models.Model):
     name = models.CharField(max_length=100)
+    access  = models.CharField(max_length=20, choices=ACCESS_CHOICES, default='Admin')
     url = models.CharField(max_length=255, null=True, blank=True)
     url_name = models.CharField(max_length=255)
     
