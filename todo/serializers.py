@@ -37,7 +37,7 @@ class ToDoUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ToDo
         fields = (
-            'title', 'desciption', 'completed'
+            'title', 'description', 'completed'
         )
         
     def update(self, instance, validated_data):
