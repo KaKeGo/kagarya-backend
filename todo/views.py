@@ -45,7 +45,7 @@ class ToDoCreateView(APIView):
 class ToDoDetailView(APIView):
     permission_classes = (permissions.AllowAny, )
     
-    def get(self, request, slug, *args, **kwargs):
+    def get(self, request, slug):
         todo = ToDo.objects.filter(slug=slug)
         
         todo = ToDoListSerializer(todo, many=True)
@@ -55,16 +55,16 @@ class ToDoDetailView(APIView):
 
 @method_decorator(csrf_protect, name='dispatch')
 class ToDoUpdateView(APIView):
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.IsAdminUser, )
     
-    def get(self, request, slug, *args, **kwargs):
+    def get(self, request, slug):
         todo = ToDo.objects.filter(slug=slug)
-        
+  
         todo = ToDoUpdateSerializer(todo, many=True)
         
         return Response(todo.data, status=status.HTTP_200_OK)
     
-    def put(self, request, slug, *args, **kwargs):
+    def put(self, request, slug):
         todo = get_object_or_404(ToDo, slug=slug)
         serializer = ToDoUpdateSerializer(todo, data=request.data)
         
@@ -72,3 +72,21 @@ class ToDoUpdateView(APIView):
             serializer.save()
             return Response({'success': 'Todo was updated successfully'}, status=status.HTTP_200_OK)
         return Response({'error': 'Someting went wrong with updating todo.'}, status=status.HTTP_400_BAD_REQUEST)
+
+@method_decorator(csrf_protect, name='dispatch')
+class ToDoDeleteView(APIView):
+    permission_classes = (permissions.AllowAny, )
+    
+    def get(self, request, slug):
+        todo = ToDo.objects.filter(slug=slug)
+        
+        todo = ToDoUpdateSerializer(todo, many=True)
+        
+        return Response(todo.data, status=status.HTTP_200_OK)
+    
+    def delete(self, request, slug):
+        todo = ToDo.objects.get(slug=slug)
+        
+        todo.delete()
+        
+        return Response(status=status.HTTP_204_NO_CONTENT)
