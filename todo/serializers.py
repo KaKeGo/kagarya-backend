@@ -9,14 +9,14 @@ class ToDoListSerializer(serializers.ModelSerializer):
     class Meta:
         model = ToDo
         fields = (
-            'title', 'description', 'completed', 'date_created', 'slug'
+            'title', 'description', 'category', 'completed', 'date_created', 'slug'
         )
 
 class ToDoCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ToDo
         fields = (
-            'title', 'description'
+            'title', 'description', 'category',
         )
         
     def validate_title(self, title):
@@ -37,12 +37,13 @@ class ToDoUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ToDo
         fields = (
-            'title', 'description', 'completed'
+            'title', 'description', 'category', 'completed'
         )
         
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
         instance.description = validated_data.get('description', instance.description)
+        instance.category = validated_data.get('category', instance.category)
         instance.completed = validated_data.get('completed', instance.completed)
         instance.save()
         return instance
