@@ -1,5 +1,6 @@
 from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
+from django.shortcuts import get_object_or_404
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -45,9 +46,9 @@ class ToDoDetailView(APIView):
     permission_classes = (permissions.AllowAny, )
     
     def get(self, request, slug, *args, **kwargs):
-        todo_m = ToDo.objects.filter(slug=slug)
+        todo = ToDo.objects.filter(slug=slug)
         
-        todo = ToDoListSerializer(todo_m, many=True)
+        todo = ToDoListSerializer(todo, many=True)
         
         return Response(todo.data, status=status.HTTP_200_OK)
         
@@ -56,8 +57,15 @@ class ToDoDetailView(APIView):
 class ToDoUpdateView(APIView):
     permission_classes = (permissions.AllowAny, )
     
-    def put(self, request, slug, *args, **kwargs):
+    def get(self, request, slug, *args, **kwargs):
         todo = ToDo.objects.filter(slug=slug)
+        
+        todo = ToDoUpdateSerializer(todo, many=True)
+        
+        return Response(todo.data, status=status.HTTP_200_OK)
+    
+    def put(self, request, slug, *args, **kwargs):
+        todo = get_object_or_404(ToDo, slug=slug)
         serializer = ToDoUpdateSerializer(todo, data=request.data)
         
         if serializer.is_valid():

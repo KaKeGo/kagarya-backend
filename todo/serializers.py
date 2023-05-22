@@ -45,3 +45,4 @@ class ToDoUpdateSerializer(serializers.ModelSerializer):
         instance.description = validated_data.get('description', instance.description)
         instance.completed = validated_data.get('completed', instance.completed)
         instance.save()
+        return instance
