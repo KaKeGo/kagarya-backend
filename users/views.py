@@ -89,7 +89,7 @@ class ChangePasswordView(APIView):
 
 @method_decorator(csrf_protect, name='dispatch')
 class ProfileListView(APIView):
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.IsAdminUser, )
     
     def get(self, request):
         profiles = UserProfile.objects.all()

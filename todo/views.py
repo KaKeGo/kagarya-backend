@@ -75,7 +75,7 @@ class ToDoUpdateView(APIView):
 
 @method_decorator(csrf_protect, name='dispatch')
 class ToDoDeleteView(APIView):
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.IsAdminUser, )
     
     def get(self, request, slug):
         todo = ToDo.objects.filter(slug=slug)
