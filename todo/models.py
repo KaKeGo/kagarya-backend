@@ -17,7 +17,7 @@ class ToDo(models.Model):
     description = models.TextField()
     completed = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
-    slug = models.SlugField(unique=True, null=True, blank=True max_length=255)
+    slug = models.SlugField(unique=True, null=True, blank=True, max_length=255)
     
     def __str__(self):
         return self.title
