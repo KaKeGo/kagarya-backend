@@ -25,19 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-15!1yjr!yptuwy@f!obworkp)n@c+_lojzwpi$&_m(dgq-35o^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [
-    '.herokuapp.com',
-    'localhost',
-    '127.0.0.1',
-  ]
-
-ALLOWED_HOSTS = [
-    '.herokuapp.com',
-    'localhost',
-    '127.0.0.1',
-  ]
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -53,6 +43,7 @@ INSTALLED_APPS = [
     #My app
     'home',
     'users.apps.UsersConfig',
+    'todo',
     
     #Third party libraries
     'rest_framework',
@@ -163,13 +154,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
 
-}
-
-if DEBUG is True:
-    REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    )
 }
 
 if DEBUG is False:

@@ -6,14 +6,15 @@
 
 <div class='text-center'>
     <div>
-        <h4 class='mt-4'>
-            Welcome Kagarya site
-        </h4>
+        {% include 'navbar.html' %}
     </div>
     <div>
         <p class='fs-6 fw-light m-4'>
             Create this site for study more drf and i want to have my own site.
             Then i think its greate idea to lern more about writing site better.
+        </p>
+        <p>
+            Csrf trusted origins only for my front site.
         </p>
     </div>
     <div class="card">
@@ -22,26 +23,26 @@
 
         {% for category in categorys %}
         <div>
-            <h5 class="card-title">Accounts</h5>
+            <h5 class="card-title">{{ category.name }}</h5>
 
             <table class="table table-success text-center">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Access</th>
                     <th scope="col">Url</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    {% for link in category.api_category.all %}
-                    <th scope="row">{{category.id}}</th>
-                    <td>{{link.name}}</td>
-                    <td>
-                        <a href='{{link.url}}'>{{link.url_name}}</a>
-                    </td>
-                    {% endfor %}
-                </tr>
+                {% for link in category.api_category.all %}
+                    <tr>
+                        <td>{{ link.name }}</td>
+                        <td>{{ link.access }}</td>
+                        <td>
+                            <a href='{{ link.url }}'>{{ link.url_name }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
                 <tr>
                 </tr>
                 </tbody>
