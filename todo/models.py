@@ -13,7 +13,7 @@ def random_slug():
     return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(40))
 
 class ToDo(models.Model):
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=50)
     description = models.TextField()
     completed = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
