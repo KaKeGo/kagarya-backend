@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'home',
     'users.apps.UsersConfig',
     'todo',
+    'about',
     
     #Third party libraries
     'rest_framework',
