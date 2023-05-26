@@ -6,6 +6,6 @@ app_name = 'about'
 
 
 urlpatterns = [
-    path('', name='about'),
+    # path('', name='about'),
 ]
 
