@@ -27,7 +27,7 @@ class AboutListView(generics.ListAPIView, mixins.ListModelMixin):
     
 @method_decorator(csrf_protect, name='dispatch')
 class AboutUpdateView(APIView):
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.IsAdminUser, )
     
     def get(self, request, slug):
         about = About.objects.filter(slug=slug)
