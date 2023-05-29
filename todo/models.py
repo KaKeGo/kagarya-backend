@@ -2,11 +2,14 @@ import string
 import random
 
 from django.db import models
+from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.utils.text import slugify
 from django.urls import reverse
 
 # Create your models here.
+
+User = get_user_model()
 
 TODO_CATEGORY = [
     ('', ''),
@@ -14,9 +17,23 @@ TODO_CATEGORY = [
     ('React', 'React'),
 ]
 
-
 def random_slug():
-    return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(40))
+    return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(15))
+
+class TodoPlan_New(models.Model):
+    name = models.CharField(max_length=30)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True, null=True, blank=True, max_length=255)
+    
+    def __str__(self):
+        return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(random_slug() + '+/+' + self.name)
+        super(TodoPlan_New, self).save(*args, **kwargs)
+
+
 
 class ToDo(models.Model):
     title = models.CharField(max_length=30)
