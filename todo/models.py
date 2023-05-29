@@ -24,7 +24,7 @@ class ToDo(models.Model):
     category = models.CharField(max_length=30, choices=TODO_CATEGORY, default='')
     completed = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
-    slug = models.SlugField(unique=True, null=True, blank=True)
+    slug = models.SlugField(unique=True, null=True, blank=True, max_length=255)
     
     def __str__(self):
         return self.title
