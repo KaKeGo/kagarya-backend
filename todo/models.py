@@ -22,6 +22,7 @@ def random_slug():
 
 class TodoPlan_New(models.Model):
     name = models.CharField(max_length=30)
+    todo = models.ManyToManyField('Todo_New', blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, null=True, blank=True, max_length=255)
     
@@ -33,7 +34,30 @@ class TodoPlan_New(models.Model):
             self.slug = slugify(random_slug() + '+/+' + self.name)
         super(TodoPlan_New, self).save(*args, **kwargs)
 
+class Todo_New(models.Model):
+    title = models.CharField(max_length=30)
+    description = models.TextField()
+    category = models.CharField(max_length=50, choices=TODO_CATEGORY, default='')
+    tasks = models.ManyToManyField('Task_New', blank=True, null=True)
+    completed = models.BooleanField(default=False)
+    date_created = models.DateTimeField(default=timezone.now)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
+    
+    def __str__(self):
+        return self.title
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(random_slug() + '+/+' + self.title)
+        super(Todo_New, self).save(*args, **kwargs)
 
+class Task_New(models.Model):
+    name = models.CharField(max_length=30)
+    complited = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f'{self.name} / {self.complited}'
+    
 
 class ToDo(models.Model):
     title = models.CharField(max_length=30)
