@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .models import (
-    CustomUser,
+    User,
     UserProfile,
 )
 from .forms import (
@@ -13,16 +13,16 @@ from .forms import (
 # Register your models here.
 
 
-class CustomUserAdmin(UserAdmin):
+class UserAdmin(UserAdmin):
     add_form = UserCreationForm
     form = UserChangeForm
     
-    model = CustomUser
+    model = User
     
     list_display = ('email', 'is_active', 'last_login')
     list_filter = ('is_active', 'is_staff', 'is_superuser')
     fieldsets = (
-        ('None', {'fields': ('email', 'password',)}),
+        ('None', {'fields': ('username', 'email', 'password',)}),
         ('Permission', {'fields': ('is_staff', 'is_superuser',)}),
         ('Dates', {'fields': ('date_created', 'last_login')}),
     )
@@ -36,5 +36,5 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
 
 
-admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(User, UserAdmin)
 admin.site.register(UserProfile)

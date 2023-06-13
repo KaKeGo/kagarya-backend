@@ -9,7 +9,7 @@ urlpatterns = [
     
     path('', include('home.urls')),
     path('account/', include('users.urls')),
-    path('todo/', include('todo.urls')),
+    path('todo/', include('todo.urls', namespace='todo')),
     path('about/', include('about.urls')),
 ] 
 

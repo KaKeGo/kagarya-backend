@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework import permissions, status
 
 from .models import (
-    CustomUser,
+    User,
     UserProfile,
 )
 from .serializers import (
@@ -30,7 +30,7 @@ class GetCSRFToken(APIView):
 class CheckAuthenticatedView(APIView):
     def get(self, request):
         try:
-            isAuthenticated = CustomUser.is_authenticated
+            isAuthenticated = User.is_authenticated
             
             if isAuthenticated:
                 return Response({'isAuthenticated': 'success'}, status=status.HTTP_200_OK)

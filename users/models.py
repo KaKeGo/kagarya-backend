@@ -31,11 +31,11 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True')
         return self.create_user(email, username, password, **extra_fields)
 
-class CustomUser(AbstractUser):
-    username = models.CharField(max_length=30)
+class User(AbstractUser):
+    username = models.CharField(max_length=45, unique=True)
     email = models.EmailField(max_length=30, unique=True)
-    is_staff = models.BooleanField(default=True)
-    is_superuser = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_created = models.DateTimeField(default=timezone.now)
     last_login = models.DateTimeField(default=timezone.now)
@@ -49,8 +49,7 @@ class CustomUser(AbstractUser):
         return self.email
     
 class UserProfile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    p_username = models.CharField(max_length=30, blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='user/avatar/', default='d_avatar/d_avatar.jpg', blank=True, null=True)
     about = models.TextField(blank=True, null=True)
     motto = models.TextField(max_length=255, blank=True, null=True)

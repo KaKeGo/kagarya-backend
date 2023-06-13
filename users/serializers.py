@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from .models import (
-    CustomUser,
+    User,
     UserProfile,
 )
 
@@ -10,7 +10,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     
     class Meta:
-        model = CustomUser
+        model = User
         fields = ('email', 'username', 'password', 'password2')
         extra_kwargs = {
             'password': {'write_only': True}
@@ -22,7 +22,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         return username
         
     def save(self):
-        user = CustomUser(
+        user = User(
             email=self.validated_data['email'],
             username=self.validated_data['username']      
             )
@@ -51,7 +51,6 @@ class ProfilesListSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = (
-                    'p_username', 
                     #Function
                     'get_email', 'get_online_status'
                   )
