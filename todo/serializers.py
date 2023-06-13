@@ -5,7 +5,7 @@ from .models import (
     Todo,
     Task,
 )
-
+ 
 #----> Task
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
