@@ -41,8 +41,8 @@ class TodoPlan(models.Model):
 
 class Todo(models.Model):
     title = models.CharField(max_length=30)
-    description = models.TextField()
-    category = models.CharField(max_length=50, choices=TODO_CATEGORY, default='')
+    description = models.TextField(null=True, blank=True)
+    category = models.CharField(max_length=50, choices=TODO_CATEGORY, default='', null=True, blank=True)
     tasks = models.ManyToManyField('Task', blank=True, null=True)
     completed = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)

@@ -17,9 +17,11 @@ from .serializers import (
     
     TodoPlanListSerializer,
     TodoPlanCreateSerializer,
+    TodoPlanCreateTodoSerializer,
     
     TodoSerializer,
     TodoCreateSerializer,
+    TodoTaskCreateSerializer,
     
     TaskSerializer,
     TaskCreateSerializer,
@@ -60,6 +62,18 @@ class TodoPlanCreateView(APIView):
                 )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+ 
+class TodoPlanTodoCreateView(APIView):
+    permission_classes = (permissions.AllowAny, )
+    
+    def post(self, request):
+        serializer = TodoPlanCreateTodoSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+                 
     
 #----> Todo
 @method_decorator(csrf_protect, name='dispatch')
@@ -74,7 +88,18 @@ class TodoView(APIView):
         todo = TodoSerializer(todo, many=True)
         context = [todo.data, plan.data]
         return Response(context, status=status.HTTP_200_OK)
+
+class TodoTaskCreateView(APIView):
+    permission_classes = (permissions.AllowAny, )
     
+    def post(self, request, slug):
+        todo = get_object_or_404(Todo, slug=slug)
+        serializer = TodoTaskCreateSerializer(todo, data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 @method_decorator(csrf_protect, name='dispatch')
 class TodoDetailView(APIView):
@@ -85,7 +110,7 @@ class TodoDetailView(APIView):
         todo = TodoSerializer(todo, many=True, context={'request': request})
         return Response(todo.data, status=status.HTTP_200_OK)
  
-# @method_decorator(csrf_protect, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
 class TodoCreateView(APIView):
     permission_classes = (permissions.AllowAny, )
     

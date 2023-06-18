@@ -4,9 +4,11 @@ from .views import (
     TodoPlanView,
     TodoDetailPlanView,
     TodoPlanCreateView,
+    TodoPlanTodoCreateView,
  
     TodoDetailView,
     TodoCreateView,
+    TodoTaskCreateView,
     
     TaskDetailView,
     TaskCreateView,
@@ -20,7 +22,8 @@ urlpatterns = [
     path('plan/create/', TodoPlanCreateView.as_view(), name='plan_create'),
     path('create/', TodoCreateView.as_view(), name='plan_create'),
     path('task/create/', TaskCreateView.as_view(), name='plan_create'),
-    
+    path('task/create/task/', TodoPlanTodoCreateView.as_view(), name='plan_create_todo'),
+    path('t/<slug>/create/', TodoTaskCreateView.as_view(), name='t'),
     
     path('plan/<slug>/', TodoDetailPlanView.as_view(), name='plan_detail'),
     

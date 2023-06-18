@@ -8,11 +8,17 @@ from .models import (
  
 #----> Task
 class TaskSerializer(serializers.ModelSerializer):
+    '''
+    To List task's
+    '''
     class Meta:
         model = Task
         fields = ['name', 'complited']
 
 class TaskCreateSerializer(serializers.ModelSerializer):
+    '''
+    To Create task list
+    '''
     class Meta:
         model = Task
         fields = ['name',]
@@ -23,13 +29,44 @@ class TaskCreateSerializer(serializers.ModelSerializer):
 
 #----> Todo
 class TodoSerializer(serializers.ModelSerializer):
+    '''
+    To List Todo list
+    '''
     tasks = TaskSerializer(many=True, required=False)
     
     class Meta:
         model = Todo
         fields = ['title', 'description', 'category', 'tasks', 'completed', 'date_created', 'slug']
 
+class TodoTaskCreateSerializer(serializers.ModelSerializer):
+    '''
+    To Create and add Task in Todo model | Not working yet
+    '''
+    task = TaskCreateSerializer(many=True, read_only=False)
+    
+    class Meta:
+        model = Todo
+        fields = ['task',]
+        
+    def update(self, instance, validated_data):
+        tasks_data = validated_data.pop('task')
+        instance = super(TodoTaskCreateSerializer, self).update(instance, validated_data)
+        
+        for task_data in tasks_data:
+             task_qs = Task.objects.filter(name__iexact=task_data['name'])
+             
+             if task_qs.exists():
+                 task = task_qs.first()
+             else:
+                 task = Task.objects.create(**task_data)
+                 
+        instance.task.add(task)
+        return instance
+
 class TodoCreateSerializer(serializers.ModelSerializer):
+    '''
+    To Create Todo
+    '''
     class Meta:
         model = Todo
         fields = ['title', 'description', 'category']
@@ -39,6 +76,9 @@ class TodoCreateSerializer(serializers.ModelSerializer):
         return todo
 
 class TodoUpdateSerializer(serializers.ModelSerializer):
+    '''
+    To Update Todo
+    '''
     class Meta:
         model = Todo
         fields = ['title', 'description', 'category', 'completed']
@@ -53,13 +93,29 @@ class TodoUpdateSerializer(serializers.ModelSerializer):
 
 #---> Todo Plan
 class TodoPlanListSerializer(serializers.ModelSerializer):
+    '''
+    To Plan list
+    '''
     todo = TodoSerializer(many=True, required=False)
     
     class Meta:
         model = TodoPlan
         fields = ['name', 'todo', 'author_name',]
 
+class TodoPlanCreateTodoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TodoPlan
+        fields = ['name', 'todo',]   
+    
+    def create(self, validate_data):
+        instance = Todo.objects.create(**validate_data)
+        return instance
+        
+
 class TodoPlanCreateSerializer(serializers.ModelSerializer):
+    '''
+    To Plan create
+    '''
     class Meta:
         model = TodoPlan
         fields = ['name']
